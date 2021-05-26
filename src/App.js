@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const AddTask = ({addTask}) => {
+	const [value, updateValue] = useState('');
+	const handleSubmit         = e => {
+		e.preventDefault();
+		if(value !== ''){
+			addTask(value);
+			updateValue('');
+		}
+	};
+	return (
+		<form onSubmit={handleSubmit}>
+			<input type="text"
+			       value={value}
+			       placeholder="enter your Task todo"
+			       onChange={e => updateValue(e.target.value)}/>
+			<button type="submit">
+				<span><i className='bx bx-plus'></i></span>
+			</button>
+		</form>
+	);
+};
 
-export default App;
+export default AddTask;
